@@ -1,0 +1,17 @@
+version: 0.2
+
+phases:
+  pre-build:
+    commands:
+      - aws s3 cp s3://porting-advisor-bedrock-pipeline-output/ requirements_txt.txt  # Download requirements file
+  install:
+    commands:
+      - pip install -r requirements_txt.txt
+  build:
+    commands:
+      - python ./porting_advisor.py  # No need for the -i flag anymore
+      - mv advisor_report.txt output.txt  # Replace advisor_report.txt with your actual output filename
+
+artifacts:
+  files:
+    - output.txt  # Replace with your actual output filename
