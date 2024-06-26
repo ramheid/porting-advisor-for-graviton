@@ -1,11 +1,9 @@
 version: 0.2
 
 phases:
-  pre-build:
-    commands:
-      - aws s3 cp s3://porting-advisor-bedrock-pipeline-output/ requirements_txt.txt  # Download requirements file
   install:
     commands:
+      - aws s3 cp s3://porting-advisor-bedrock-pipeline-output/requirements_txt.txt requirements_txt.txt  # Download requirements file (ensure filename casing matches S3)
       - pip install -r requirements_txt.txt
   build:
     commands:
