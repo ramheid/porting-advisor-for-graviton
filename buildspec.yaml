@@ -5,11 +5,15 @@ phases:
     commands:
       - aws s3 cp s3://porting-advisor-bedrock-pipeline-output/requirements_txt.txt requirements_txt.txt  # Download requirements file
       - pip install -r requirements.txt
-
+      
+  pre_build:
+    commands:
+      - python3 -m venv .venv  # Create virtual environment
+      
   build:
     commands:
       # Create virtual environment, activate, install dependencies, run script with S3 path
-      - sh -c '. .venv/bin/activate; pip install -r requirements.txt; python3 src/porting-advisor.py s3://your-s3-bucket-name/your-repository-folder; deactivate'
+      - sh -c '. .venv/bin/activate; pip install -r requirements.txt; python3 src/porting-advisor.py s3://porting-advisor-bedrock-pipeline-output/; deactivate'
 
 artifacts:
   files:
