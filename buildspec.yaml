@@ -3,12 +3,13 @@ version: 0.2
 phases:
   install:
     commands:
-      - aws s3 cp s3://porting-advisor-bedrock-pipeline-output/requirements_txt.txt requirements_txt.txt  # Download requirements file (ensure filename casing matches S3)
-      - pip install -r requirements_txt.txt
+      - aws s3 cp s3://porting-advisor-bedrock-pipeline-output/requirements_txt.txt # Download requirements file
+      - pip install -r requirements.txt
+
   build:
     commands:
-      - python ./porting_advisor.py  # No need for the -i flag anymore
-      - mv advisor_report.txt output.txt  # Replace advisor_report.txt with your actual output filename
+      # Create virtual environment, activate, install dependencies, run script with S3 path
+      - sh -c '. .venv/bin/activate; pip install -r requirements.txt; python3 src/porting-advisor.py s3://your-s3-bucket-name/your-repository-folder; deactivate'
 
 artifacts:
   files:
