@@ -6,7 +6,7 @@ phases:
       # Create virtual environment, activate, install dependencies, run script with S3 path
       - python3 -m venv .venv
       - ls -lah
-      - sh -c 'source .venv/bin/activate; pip install -r requirements.txt; python3 src/porting-advisor.py aws s3 cp s3://porting-advisor-bedrock-pipeline-output/; deactivate'
+      - sh -c 'source .venv/bin/activate; pip install -r requirements.txt; python3 src/porting-advisor.py aws s3 sync s3://porting-advisor-bedrock-pipeline-output/; deactivate'
 
 artifacts:
   files:
